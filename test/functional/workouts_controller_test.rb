@@ -3,7 +3,11 @@ require 'test_helper'
 class WorkoutsControllerTest < ActionController::TestCase
   setup do
     clear
-    @workout = Workout.new(:title => "2x 20'")
+    Team.create(:title => 'TJL', :members => [
+      Member.new(:name => 'Yorick'),
+      Member.new(:name => 'Henk')
+    ])
+    @workout = Workout.new(:title => "2x 20'", :team => Team.first)
     @workout.save
     @workout_unsaved = Workout.new(:title => "2x 20'");
   end

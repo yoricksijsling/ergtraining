@@ -5,6 +5,7 @@ class Workout
   key :date, Date, :default => Date.today
   
   many :member_workouts
+  belongs_to :team
   
   def workout_config
     multipliers = @title.scan(/(\d*)x/).flatten.map{ |m| m.to_i }
@@ -24,4 +25,8 @@ class Workout
     config[:intervals] * config[:repeats]
   end
   
+  def get_a_member_workout_for(member)
+    self.member_workouts.select{ |mw| mw.member == member }.first || MemberWorkout.new(:member => member, :workout => self)
+    # MemberWorkout.get_or_new(:member_id => member._id, :workout_id => workout._id)
+  end
 end

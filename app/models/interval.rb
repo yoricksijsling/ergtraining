@@ -5,5 +5,4 @@ class Interval
   key :hravg, Integer
   key :hrmax, Integer
   key :tempoavg, Integer
-  
 end

@@ -4,5 +4,6 @@ class Member
   key :name, String
   
   many :member_workouts
+  belongs_to :team
   
 end

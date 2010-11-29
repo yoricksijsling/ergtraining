@@ -1,8 +1,11 @@
 class WorkoutsController < ApplicationController
+  before_filter :find_team
+  before_filter :find_workout, :only => [:show, :edit, :update, :destroy]
+  
   # GET /workouts
   # GET /workouts.xml
   def index
-    @workouts = Workout.all
+    @workouts = @team.workouts
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,8 +16,6 @@ class WorkoutsController < ApplicationController
   # GET /workouts/1
   # GET /workouts/1.xml
   def show
-    @workout = Workout.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @workout }
@@ -34,14 +35,13 @@ class WorkoutsController < ApplicationController
 
   # GET /workouts/1/edit
   def edit
-    @workout = Workout.find(params[:id])
   end
 
   # POST /workouts
   # POST /workouts.xml
   def create
-    Logger.new(STDOUT).info params[:workout]
     @workout = Workout.new(params[:workout])
+    @workout.team = @team
 
     respond_to do |format|
       if @workout.save
@@ -57,9 +57,8 @@ class WorkoutsController < ApplicationController
   # PUT /workouts/1
   # PUT /workouts/1.xml
   def update
-    @workout = Workout.find(params[:id])
-
     respond_to do |format|
+      Logger.new(STDOUT).info params[:workout]
       if @workout.update_attributes(params[:workout])
         format.html { redirect_to(@workout, :notice => 'Workout was successfully updated.') }
         format.xml  { head :ok }
@@ -73,12 +72,22 @@ class WorkoutsController < ApplicationController
   # DELETE /workouts/1
   # DELETE /workouts/1.xml
   def destroy
-    @workout = Workout.find(params[:id])
     @workout.destroy
 
     respond_to do |format|
       format.html { redirect_to(workouts_url) }
       format.xml  { head :ok }
+    end
+  end
+  
+  def find_team
+    @team = Team.first # Wow
+  end
+  
+  def find_workout
+    @workout = Workout.find(params[:id])
+    if @workout.team != @team
+      @workout = nil
     end
   end
 end

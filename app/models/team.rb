@@ -4,5 +4,6 @@ class Team
   key :title, String
   
   many :members
+  many :workouts
   
 end
