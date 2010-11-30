@@ -1,11 +1,9 @@
 class MemberWorkout
   include MongoMapper::Document
-  
-  many :intervals
-  
-  # belongs_to :member
   belongs_to :workout
   
+  many :intervals
+    
   def initialize params
     super params
     if self.intervals.length == 0
@@ -21,4 +19,10 @@ class MemberWorkout
     member.member_workouts << self if self.workout.team == member.team
   end
   
+  # accepts_nested_attributes_for
+  def intervals_attributes=(attributes)
+    attributes.each do |key, sub|
+      self.intervals[key.to_i].update_attributes(sub)
+    end
+  end
 end

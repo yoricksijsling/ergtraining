@@ -58,7 +58,6 @@ class WorkoutsController < ApplicationController
   # PUT /workouts/1.xml
   def update
     respond_to do |format|
-      Logger.new(STDOUT).info params[:workout]
       if @workout.update_attributes(params[:workout])
         format.html { redirect_to(@workout, :notice => 'Workout was successfully updated.') }
         format.xml  { head :ok }

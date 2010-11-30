@@ -13,24 +13,14 @@
     </div>
   <% end %>
 
-	<% @workout.team.members.each do |member|
-		@member_workout = @workout.get_a_member_workout_for(member)
-		%>
-		<%= f.fields_for "member_workout[]" do |fmw| %>
-			name: <%= member.name %>
-			<% member_workout.intervals.each do |@interval| %>
-				<%= fields_for "interval[]" do |fi| %>
-				  <div class="field">
-				    <%= fi.label :pace %><br />
-				    <%= fi.text_field :pace %>
-				  </div>
-				  <div class="field">
-				    <%= fi.label :hravg, "Average heartrate" %><br />
-				    <%= fi.text_field :hravg %>
-				  </div>
-				<% end %>
+	<%= f.fields_for :member_workouts do |fmw| %>
+		<div class='member_workout'>
+			<%= fmw.object.member.name %>
+			<%= fmw.fields_for :intervals do |fi| %>
+				<%= fi.text_field :pace %>
+				<%= fi.text_field :hravg %>
 			<% end %>
-		<% end %>
+		</div>
 	<% end %>
   <div class="actions">
     <%= f.submit %>

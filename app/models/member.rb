@@ -1,9 +1,7 @@
 class Member
   include MongoMapper::EmbeddedDocument
-  
+  embedded_in :team
   key :name, String
-  
   many :member_workouts
-  belongs_to :team
   
 end
