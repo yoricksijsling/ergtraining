@@ -38,9 +38,8 @@ class WorkoutsController < ApplicationController
   end
   
   def create_for_member
-    @member = @team.members.select{ |m| m._id == params[:member_id] }.first
-    @member_workout = @workout.get_or_create_for @member
-    render :json => @member_workout
+    member = @team.members.select{ |m| m._id == params[:member_id] }.first
+    @member_workout = @workout.get_or_create_for member
   end
 
   # POST /workouts
