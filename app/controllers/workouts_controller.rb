@@ -38,8 +38,9 @@ class WorkoutsController < ApplicationController
   end
   
   def create_for_member
-    member = @team.members.select{ |m| m._id == params[:member_id] }.first
+    member = @team.members.select{ |m| m._id.to_s == params[:member_id] }.first
     @member_workout = @workout.get_or_create_for member
+    render :layout => false
   end
 
   # POST /workouts
@@ -85,7 +86,7 @@ class WorkoutsController < ApplicationController
   end
   
   def find_team
-    @team = Team.first # Wow
+    @team = Team.first
   end
   
   def find_workout
