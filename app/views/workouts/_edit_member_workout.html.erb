@@ -1,0 +1,8 @@
+<%= fields_for "workout[member_workouts_attributes][#{member_workout._id}]", member_workout.ensure_enough_intervals do |fmw| %>
+	<%= fmw.fields_for :intervals do |fi| %>
+		<div class='interval'>
+			<%= fi.text_field :pace %>
+			<%= fi.text_field :hravg %>
+		</div>
+	<% end %>
+<% end %>

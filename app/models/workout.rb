@@ -23,15 +23,23 @@ class Workout
     config[:intervals] * config[:repeats]
   end
   
-  def get_a_member_workout_for(member)
-    self.member_workouts.select{ |mw| mw.member == member }.first || MemberWorkout.new(:member => member, :workout => self)
-    # MemberWorkout.get_or_new(:member_id => member._id, :workout_id => workout._id)
+  def get_for(member)
+    # self.member_workouts.select{ |mw| mw.member == member }.first
+    MemberWorkout.first :member_id => member._id, :workout_id => self._id
+  end
+  
+  def get_or_create_for(member)
+    self.get_for(member) || MemberWorkout.create(:member => member, :workout => self)
   end
   
   # accepts_nested_attributes_for
   def member_workouts_attributes=(attributes)
     attributes.each do |key, sub|
-      self.member_workouts[key.to_i].update_attributes(sub)
+      MemberWorkout.find(key).update_attributes(sub)
     end
+  end
+  
+  def to_bson
+    self._id
   end
 end

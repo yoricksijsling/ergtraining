@@ -1,6 +1,6 @@
 class WorkoutsController < ApplicationController
   before_filter :find_team
-  before_filter :find_workout, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_workout, :only => [:show, :edit, :update, :destroy, :create_for_member]
   
   # GET /workouts
   # GET /workouts.xml
@@ -35,6 +35,12 @@ class WorkoutsController < ApplicationController
 
   # GET /workouts/1/edit
   def edit
+  end
+  
+  def create_for_member
+    @member = @team.members.select{ |m| m._id == params[:member_id] }.first
+    @member_workout = @workout.get_or_create_for @member
+    render :json => @member_workout
   end
 
   # POST /workouts
@@ -84,8 +90,8 @@ class WorkoutsController < ApplicationController
   end
   
   def find_workout
-    @workout = Workout.find(params[:id])
-    if @workout.team != @team
+    @workout = Workout.find(params[:id] || params[:workout_id])
+    if @workout && @workout.team != @team
       @workout = nil
     end
   end

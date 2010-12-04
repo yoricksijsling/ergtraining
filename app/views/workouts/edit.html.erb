@@ -13,13 +13,19 @@
     </div>
   <% end %>
 
-	<%= f.fields_for :member_workouts do |fmw| %>
-		<div class='member_workout'>
-			<%= fmw.object.member.name %>
-			<%= fmw.fields_for :intervals do |fi| %>
-				<%= fi.text_field :pace %>
-				<%= fi.text_field :hravg %>
+	<% @workout.team.members.each do |member| %>
+		<div class='member'>
+			<div class='member_name'><%= member.name %></div>
+			
+			<div class='member_workout' data-workout-id='<%= @workout._id%>' data-member-id='<%= member._id%>'>
+				<% member_workout = @workout.get_for member %>
+				<% if member_workout %>
+					<%= render :partial => "workouts/edit_member_workout", :locals => { :member_workout => member_workout } %>
+				<% else %>
+					<div class='notimesyet'>Nog geen tijden</div>
 			<% end %>
+			</div>
+			
 		</div>
 	<% end %>
   <div class="actions">

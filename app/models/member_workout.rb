@@ -1,11 +1,11 @@
 class MemberWorkout
   include MongoMapper::Document
   belongs_to :workout
+  belongs_to :member
   
   many :intervals
-    
-  def initialize params
-    super params
+  
+  def ensure_enough_intervals
     if self.intervals.length == 0
       self.workout.number_of_intervals.times { self.intervals << Interval.new }
     end
@@ -15,8 +15,7 @@ class MemberWorkout
     self.workout.team.members.select { |m| m.member_workouts.include? self }.first
   end
   def member=(member)
-    # Maybe check they are the same team?
-    member.member_workouts << self if self.workout.team == member.team
+    member.member_workouts << self unless self.workout && (self.workout.team != member.team)
   end
   
   # accepts_nested_attributes_for

@@ -13,19 +13,16 @@ class WorkoutTest < ActionController::IntegrationTest
     assert_equal w1, @team.workouts[0]
     assert_equal @team, w1.team
     
-    mw1 = MemberWorkout.new()
-    @team.members[0].member_workouts << mw1
-    w1.member_workouts << mw1
+    mw1 = w1.get_or_create_for @team.members[0]
     mw1.intervals << Interval.new(:pace => "115.5", :hravg => "165")
     mw1.intervals << Interval.new(:pace => "116.3", :hravg => "170")
     mw1.save
     
-    mw2 = MemberWorkout.new()
-    @team.members[1].member_workouts << mw2
-    w1.member_workouts << mw2
+    mw2 = w1.get_or_create_for @team.members[1]
     mw2.intervals << Interval.new(:pace => "118.5", :hravg => "172")
     mw2.intervals << Interval.new(:pace => "118.3", :hravg => "172")
     mw2.save
+    assert_equal 2, w1.member_workouts.count
     
     assert_equal w1, mw1.workout
     assert_equal @team.members[0], mw1.member

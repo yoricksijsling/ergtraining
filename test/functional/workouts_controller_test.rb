@@ -3,13 +3,14 @@ require 'test_helper'
 class WorkoutsControllerTest < ActionController::TestCase
   setup do
     clear
-    Team.create(:title => 'TJL', :members => [
-      Member.new(:name => 'Yorick'),
-      Member.new(:name => 'Henk')
-    ])
+    @yorick = Member.new(:name => 'Yorick')
+    @henk = Member.new(:name => 'Henk')
+    Team.create(:title => 'TJL', :members => [@yorick, @henk])
+    
     @workout = Workout.new(:title => "2x 20'", :team => Team.first)
     @workout.save
-    @workout_unsaved = Workout.new(:title => "2x 20'");
+    
+    @member_workout = @workout.get_or_create_for @yorick
   end
 
   test "should get index" do
@@ -25,7 +26,7 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   test "should create workout" do
     assert_difference('Workout.count') do
-      post :create, :workout => @workout_unsaved.attributes
+      post :create, :workout => Workout.new(:title => "2x 20'").attributes
     end
 
     assert_redirected_to workout_path(assigns(:workout))
@@ -52,5 +53,15 @@ class WorkoutsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to workouts_path
+  end
+  
+  test "create member workout route" do
+    assert_routing 'workouts/abc123/create_for_member/m1', { :controller => 'workouts', :action => 'create_for_member', :workout_id => 'abc123', :member_id => 'm1' }
+  end
+  
+  test "should create member workout" do
+    assert_nil @workout.get_for @henk
+    get :create_for_member, :workout_id => @workout.to_param, :member_id => @henk._id
+    assert_not_nil @workout.get_for @henk
   end
 end
