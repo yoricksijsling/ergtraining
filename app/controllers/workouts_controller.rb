@@ -1,6 +1,6 @@
 class WorkoutsController < ApplicationController
   before_filter :find_team
-  before_filter :find_workout, :only => [:show, :edit, :update, :destroy, :create_for_member]
+  before_filter :find_workout, :only => [:show, :edit, :update, :destroy, :get_for_member]
   
   # GET /workouts
   # GET /workouts.xml
@@ -37,9 +37,9 @@ class WorkoutsController < ApplicationController
   def edit
   end
   
-  def create_for_member
-    member = @team.members.select{ |m| m._id.to_s == params[:member_id] }.first
-    @member_workout = @workout.get_or_create_for member
+  def get_for_member
+    member = @team.get_member BSON::ObjectId.from_string(params[:member_id])
+    @member_workout = @workout.get_or_new_for member
     render :layout => false
   end
 

@@ -28,18 +28,16 @@ class Workout
     MemberWorkout.first :member_id => member._id, :workout_id => self._id
   end
   
-  def get_or_create_for(member)
-    self.get_for(member) || MemberWorkout.create(:member => member, :workout => self)
+  def get_or_new_for(member)
+    self.get_for(member) || MemberWorkout.new(:member => member, :workout => self)
   end
   
-  # accepts_nested_attributes_for
-  def member_workouts_attributes=(attributes)
-    attributes.each do |key, sub|
-      MemberWorkout.find(key).update_attributes(sub)
+  def for_member_attributes=(attributes)
+    attributes.each do |member_id, sub|
+      # mw = MemberWorkout.find key || self.get_or_new_for
+      mw = self.get_or_new_for self.team.get_member(BSON::ObjectId.from_string(member_id))
+      mw.ensure_enough_intervals.update_attributes(sub) if mw
     end
   end
   
-  def to_bson
-    self._id
-  end
 end

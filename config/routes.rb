@@ -1,7 +1,7 @@
 Ergtraining::Application.routes.draw do
   
   resources :workouts do
-    get 'create_for_member/:member_id', :action => :create_for_member, :as => :create_for_member
+    get 'get_for_member/:member_id', :action => :get_for_member, :as => :get_for_member
   end
   # match 'workouts/:workout_id/create_member_workout/:member_id'
 
