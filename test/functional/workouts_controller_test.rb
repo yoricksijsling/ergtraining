@@ -34,11 +34,6 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  should "get edit" do
-    get :edit, :id => @workout.to_param
-    assert_response :success
-  end
-
   should "destroy workout" do
     assert_difference('Workout.count', -1) do
       delete :destroy, :id => @workout.to_param

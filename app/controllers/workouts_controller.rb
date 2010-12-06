@@ -18,7 +18,6 @@ class WorkoutsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @workout }
     end
   end
 
@@ -31,10 +30,6 @@ class WorkoutsController < ApplicationController
       format.html # new.html.erb
       format.xml  { render :xml => @workout }
     end
-  end
-
-  # GET /workouts/1/edit
-  def edit
   end
   
   def get_for_member
