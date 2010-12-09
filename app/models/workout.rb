@@ -28,7 +28,7 @@ class Workout
   end
   
   def get_or_new_for(member)
-    self.get_for(member) || MemberWorkout.new(:member => member, :workout => self)
+    self.get_for(member) || MemberWorkout.new(:member => member, :workout_id => self._id)
   end
   
   def for_member_attributes=(attributes)

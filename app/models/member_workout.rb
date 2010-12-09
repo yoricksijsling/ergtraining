@@ -5,11 +5,25 @@ class MemberWorkout
   
   many :intervals
   
+  # before_save :should_contain_data
+  
   def ensure_enough_intervals
     if self.intervals.length == 0
       self.workout.number_of_intervals.times { self.intervals << Interval.new }
     end
     self
+  end
+  
+  def create(*args)
+    self.contains_data ? super : false
+  end
+  def update(*args)
+    self.contains_data ? super : (self.destroy && false)
+  end
+  
+  def contains_data
+    # false
+    self.intervals.map{ |i| i.contains_data }.any?
   end
   
   def member # Moet via team omdat member een EmbeddedDocument is

@@ -6,7 +6,7 @@ class WorkoutTest < ActiveSupport::TestCase
     clear
   end
   
-  test "Get number of intervals" do
+  should "get the right number of intervals" do
     workout = Workout.new(:title => "2x 20'")
     assert_equal 2, workout.number_of_intervals
     assert_equal 2, workout.number_of_intervals_per_repeat

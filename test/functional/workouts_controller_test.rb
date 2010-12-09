@@ -43,10 +43,16 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_routing 'teams/myteam/workouts/myworkout/get_for_member/m1', { :controller => 'workouts', :action => 'get_for_member', :workout_id => 'myworkout', :member_id => 'm1', :team_id => 'myteam' }
   end
   
-  should "get member workout" do
-    post :get_for_member, :workout_id => @workout.to_param, :member_id => @henk.to_param, :team_id => @team.to_param
+  context "getting a new member workout" do
+    setup do
+      post :get_for_member, :workout_id => @workout.to_param, :member_id => @henk.to_param, :team_id => @team.to_param
+    end
+    
+    should "not save the member workout" do
+      assert_nil @workout.reload.get_for(@henk)
+    end
   end
-
+  
   context "A PUT to workouts" do
     setup do
       put :update, :id => @workout.to_param, :team_id => @team.to_param, :workout => {
