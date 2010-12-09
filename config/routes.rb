@@ -1,11 +1,12 @@
 Ergtraining::Application.routes.draw do
   
-  resources :workouts, :except => :edit do
-    get 'get_for_member/:member_id', :action => :get_for_member, :as => :get_for_member
+  resources :teams, :except => :destroy do
+    resources :workouts, :except => [:index, :edit] do
+      get 'get_for_member/:member_id', :action => :get_for_member, :as => :get_for_member
+    end
   end
-  # match 'workouts/:workout_id/create_member_workout/:member_id'
-
-  root :to => "workouts#index"
+  
+  root :to => "teams#index"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

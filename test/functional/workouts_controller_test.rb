@@ -3,58 +3,54 @@ require 'test_helper'
 class WorkoutsControllerTest < ActionController::TestCase
   setup do
     clear
+    
     @yorick = Member.new(:name => 'Yorick')
     @henk = Member.new(:name => 'Henk')
-    Team.create(:title => 'TJL', :members => [@yorick, @henk])
+    @team = Team.create(:title => 'TJL', :members => [@yorick, @henk])
     
-    @workout = Workout.create(:title => "2x 20'", :team => Team.first)
-  end
-
-  should "get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:workouts)
+    @workout = Workout.create(:title => "2x 20'", :team => @team)
   end
 
   should "get new" do
-    get :new
+    get :new, :team_id => @team.to_param
     assert_response :success
   end
 
   should "create workout" do
+    new_workout = Workout.new(:title => "2x 20'", :team => @team)
+    
     assert_difference('Workout.count') do
-      post :create, :workout => Workout.new(:title => "2x 20'").attributes
+      post :create, :workout => new_workout.attributes, :team_id => @team.to_param
     end
 
-    assert_redirected_to workout_path(assigns(:workout))
+    assert_redirected_to team_workout_path(@team, assigns(:workout))
   end
 
   should "show workout" do
-    get :show, :id => @workout.to_param
+    get :show, :id => @workout.to_param, :team_id => @team.to_param
     assert_response :success
   end
 
   should "destroy workout" do
     assert_difference('Workout.count', -1) do
-      delete :destroy, :id => @workout.to_param
+      delete :destroy, :id => @workout.to_param, :team_id => @team.to_param
     end
 
-    assert_redirected_to workouts_path
+    assert_redirected_to team_workouts_path(@team)
   end
   
   should "have routing for get_for_member" do
-    assert_routing 'workouts/abc123/get_for_member/m1', { :controller => 'workouts', :action => 'get_for_member', :workout_id => 'abc123', :member_id => 'm1' }
+    assert_routing 'teams/myteam/workouts/myworkout/get_for_member/m1', { :controller => 'workouts', :action => 'get_for_member', :workout_id => 'myworkout', :member_id => 'm1', :team_id => 'myteam' }
   end
   
   should "get member workout" do
-    get :get_for_member, :workout_id => @workout.to_param, :member_id => @henk.to_param
+    post :get_for_member, :workout_id => @workout.to_param, :member_id => @henk.to_param, :team_id => @team.to_param
   end
 
   context "A PUT to workouts" do
     setup do
-      put :update, :id => @workout.to_param, :workout => {
+      put :update, :id => @workout.to_param, :team_id => @team.to_param, :workout => {
         :title => "2x 20'",
-        :team => Team.first,
         :for_member_attributes => {
           @henk.to_param => { :intervals_attributes => {
             0 => { :hravg => 1, :pace => 2 },
@@ -66,7 +62,7 @@ class WorkoutsControllerTest < ActionController::TestCase
 
     # should redirect_to workout_path(@workout)
     should "redirect to workout" do
-      assert_redirected_to workout_path(@workout)
+      assert_redirected_to team_workout_path(@team, @workout)
       # assert_redirected_to workout_path(assigns(:workout))
     end
   

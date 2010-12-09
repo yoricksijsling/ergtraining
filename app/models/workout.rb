@@ -22,9 +22,8 @@ class Workout
     config = self.workout_config
     config[:intervals] * config[:repeats]
   end
-  
+
   def get_for(member)
-    # self.member_workouts.select{ |mw| mw.member == member }.first
     MemberWorkout.first :member_id => member._id, :workout_id => self._id
   end
   
