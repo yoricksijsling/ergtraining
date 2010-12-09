@@ -1,0 +1,21 @@
+<h1>Teams</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Members</th>
+    <th></th>
+  </tr>
+
+<% @teams.each do |team| %>
+  <tr>
+    <td><%= team.title %></td>
+    <td><%= team.members.map{ |m| m.name }.join ', ' %></td>
+    <td><%= link_to 'Show', team %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Team', new_team_path %>

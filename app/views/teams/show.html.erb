@@ -1,0 +1,22 @@
+<h2>Workouts for <%= @team.title %></h2>
+
+<table>
+<% @workouts.each do |workout| %>
+  <tr>
+    <td><%= link_to workout.title, [@team, workout] %></td>
+    <td><%= workout.date %></td>
+    <td><%= link_to 'Remove', [@team, workout], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<p><%= link_to 'Add a new workout', new_team_workout_path(@team) %></p>
+
+<h2>Members in <%= @team.title %></h2>
+
+<table>
+<% @members.each do |member| %>
+	<tr>
+		<td><%= member.name %></td>
+	</tr>
+<% end%>
+</table>
