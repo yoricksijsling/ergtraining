@@ -40,7 +40,7 @@ class WorkoutsController < ApplicationController
 
   def destroy
     @workout.destroy
-    redirect_to team_workouts_url(@team)
+    redirect_to @team
   end
 
   

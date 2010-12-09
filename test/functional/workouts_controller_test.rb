@@ -36,7 +36,7 @@ class WorkoutsControllerTest < ActionController::TestCase
       delete :destroy, :id => @workout.to_param, :team_id => @team.to_param
     end
 
-    assert_redirected_to team_workouts_path(@team)
+    assert_redirected_to @team
   end
   
   should "have routing for get_for_member" do
