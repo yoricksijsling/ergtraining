@@ -4,7 +4,7 @@
 <% @workouts.each do |workout| %>
   <tr>
     <td><%= link_to workout.title, [@team, workout] %></td>
-    <td><%= workout.date %></td>
+    <td><%= l workout.date %></td>
     <td><%= link_to 'Remove', [@team, workout], :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

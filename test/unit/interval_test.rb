@@ -28,7 +28,7 @@ class IntervalTest < ActiveSupport::TestCase
     end
     
     should "return true when pace is set" do
-      @interval.pace = "123"
+      @interval.pace = "1:50.2"
       assert @interval.contains_data
     end
     

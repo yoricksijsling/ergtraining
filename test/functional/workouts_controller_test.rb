@@ -59,8 +59,8 @@ class WorkoutsControllerTest < ActionController::TestCase
         :title => "2x 20'",
         :for_member_attributes => {
           @henk.to_param => { :intervals_attributes => {
-            0 => { :hravg => 1, :pace => 2 },
-            1 => { :hravg => 3, :pace => 4 }
+            0 => { :hravg => 1, :pace => "1:50.2" },
+            1 => { :hravg => 3, :pace => "1:51.3" }
           }}
         }
       }

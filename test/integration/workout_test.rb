@@ -9,7 +9,7 @@ class WorkoutTest < ActionController::IntegrationTest
   end
 
   should "associate team and workout" do
-    assert_equal @workout, @team.workouts[0]
+    assert_equal @workout, @team.workouts.first
     assert_equal @team, @workout.team    
   end
 
@@ -59,7 +59,7 @@ class WorkoutTest < ActionController::IntegrationTest
     
       should "associate workout and member" do
         assert_equal @team.members.first, @mw1.member
-        assert_equal @team.members.first.member_workouts[0], @mw1
+        assert_equal @team.members.first.member_workouts.first, @mw1
       end
     end
   end

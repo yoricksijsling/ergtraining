@@ -1,13 +1,16 @@
 class Interval
   include MongoMapper::EmbeddedDocument
   embedded_in :member_workout
-  key :pace, Float # add a class for Pace
+  key :pace_as_float, Float
   key :hravg, Integer
   key :hrmax, Integer
   key :tempoavg, Integer
-  
+    
   def pace=(pace)
-    self.write_attribute :pace, pace == "" ? nil : pace
+    self.pace_as_float = Pace.parse(pace)
+  end
+  def pace
+    self.pace_as_float.nil? ? nil : Pace.to_s(self.pace_as_float)
   end
   
   def contains_data

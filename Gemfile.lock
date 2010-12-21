@@ -83,6 +83,7 @@ PLATFORMS
 
 DEPENDENCIES
   haml
+  i18n
   mongo
   mongo_mapper
   rails (= 3.0.0)
