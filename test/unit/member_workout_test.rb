@@ -38,4 +38,21 @@ class MemberWorkoutTest < ActiveSupport::TestCase
       assert_not_equal 0, @mw1.intervals.count
     end
   end
+  
+  context "interval statistics" do
+    setup do
+      @mw1.ensure_enough_intervals
+      @mw1.intervals[0] = Interval.new(:hravg => "100", :hrmax => "200", :pace => "1:50")
+      @mw1.intervals[1] = Interval.new(:hravg => "110", :hrmax => "210", :pace => "1:55")
+    end
+    
+    should "calculate average heartrates correctly" do
+      assert_equal 105, @mw1.intervals_average(:hravg)
+      assert_equal 205, @mw1.intervals_average(:hrmax)
+    end
+    
+    should "calculate average pace correctly" do
+      assert_equal 112.5, @mw1.intervals_average(:pace_as_float)
+    end
+  end
 end

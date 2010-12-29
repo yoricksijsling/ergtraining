@@ -17,12 +17,13 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   should "create workout" do
-    new_workout = Workout.new(:title => "2x 20'", :team => @team)
-    
+    new_workout = Workout.new(:title => "2x 20'", :date => "18-05-2010")
+
     assert_difference('Workout.count') do
       post :create, :workout => new_workout.attributes, :team_id => @team.to_param
     end
-
+    
+    assert_equal Date.new(2010, 5, 18), assigns(:workout).date
     assert_redirected_to team_workout_path(@team, assigns(:workout))
   end
 
@@ -56,7 +57,6 @@ class WorkoutsControllerTest < ActionController::TestCase
   context "A PUT to workouts" do
     setup do
       put :update, :id => @workout.to_param, :team_id => @team.to_param, :workout => {
-        :title => "2x 20'",
         :for_member_attributes => {
           @henk.to_param => { :intervals_attributes => {
             0 => { :hravg => 1, :pace => "1:50.2" },
@@ -69,7 +69,6 @@ class WorkoutsControllerTest < ActionController::TestCase
     # should redirect_to workout_path(@workout)
     should "redirect to workout" do
       assert_redirected_to team_workout_path(@team, @workout)
-      # assert_redirected_to workout_path(assigns(:workout))
     end
   
     should "create a member workout" do

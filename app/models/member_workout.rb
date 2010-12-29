@@ -39,4 +39,8 @@ class MemberWorkout
       self.intervals[key.to_i].update_attributes(sub)
     end
   end
+  
+  def intervals_average(field)
+    self.intervals.map{ |i| i.send field}.reduce(:+).to_f / self.intervals.count
+  end
 end
