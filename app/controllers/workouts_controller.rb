@@ -1,6 +1,7 @@
 class WorkoutsController < ApplicationController
   before_filter :find_team
   before_filter :find_workout, :only => [:show, :edit, :update, :destroy, :get_for_member]
+  before_filter :parse_date, :only => [:create]
   
   def index
     @workouts = @team.workouts
@@ -43,6 +44,14 @@ class WorkoutsController < ApplicationController
     redirect_to @team
   end
 
+  def parse_date
+    keys = ["date(1i)", "date(2i)", "date(3i)"]
+    parts = keys.map{ |k| params[:workout][k].to_i }
+    if parts.all? { |p| p > 0 }
+      params[:workout][:date] = Date.new parts[0], parts[1], parts[2]
+      keys.each { |k| params[:workout].delete k }
+    end
+  end
   
   def find_team
     @team = Team.find params[:team_id]
