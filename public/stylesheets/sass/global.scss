@@ -1,1 +1,40 @@
 @import "blueprint/global.scss";
+
+
+
+.css_table_cell {
+	float: left;
+}
+
+.edit_workout .member_workout {
+
+.header {
+	background-color: #99ff99;
+	line-height: 2;
+}
+.content {
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+.member_name, .interval_name { @extend .css_table_cell; width: 10em;
+	line-height: 2; }
+.pace_cell { @extend .css_table_cell; width: 6em; }
+.hravg_cell { @extend .css_table_cell; width: 5em; }
+.buttons_cell { @extend .css_table_cell; width: 10em; }
+
+input.pace {
+	width: 5em;
+	margin: 1px 0 1px -5px;
+	padding: 0 5px;
+	line-height: 2;
+}
+input.hravg {
+	width: 3em;
+	padding: 0 5px 0 1.5em;
+	margin: 1px 0 1px -1.5em;
+	line-height: 2;
+}
+label.hravg { position: relative; }
+
+}

@@ -18,16 +18,20 @@
 	<% @workout.team.members.each do |member|
 		member_workout = @workout.get_for member
 		%>
-		<div class='member'>
-			<div class='member_name'><%= member.name %> <% if member_workout %><%= Pace.to_s(member_workout.intervals_average :pace_as_float) %> @ <%= member_workout.intervals_average :hravg %><% end %></div>
-			
-			<div class='member_workout ajaxdiv' data-ajaxurl='<%= workout_get_for_member_path @team, @workout, member%>'>
+		<div class='member_workout'>
+			<div class='header'>
+				<div class='member_name'><%= member.name %></div>
 				<% if member_workout %>
-					<%= render :partial => "workouts/edit_member_workout", :locals => { :member_workout => member_workout } %>
+					<div class='pace_cell'><%= Pace.to_s(member_workout.intervals_average :pace_as_float) %></div>
+					<div class='hravg_cell'>♡ <%= member_workout.intervals_average :hravg %></div>
+					<div class='buttons_cell'><a class='show_member_workout' href='javascript:'>Intervals weergeven</a></div>
 				<% else %>
-					<div class='no_data_yet'><a class='add_member_workout' href='#'>Gegevens invoeren</a></div>
-			<% end %>
+					<div class='buttons_cell'><a class='show_member_workout' href='javascript:'>Resultaten invoeren</a></div>
+				<% end %>
+				<div class='clear'></div>
 			</div>
+			
+			<div class='content' data-ajaxurl='<%= workout_get_for_member_path @team, @workout, member%>'></div>
 			
 		</div>
 	<% end %>
