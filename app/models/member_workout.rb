@@ -1,11 +1,12 @@
 class MemberWorkout
   include MongoMapper::Document
+  
+  key :comment
+  
   belongs_to :workout
   belongs_to :member
   
   many :intervals
-  
-  # before_save :should_contain_data
   
   def ensure_enough_intervals
     if self.intervals.length == 0
@@ -22,7 +23,6 @@ class MemberWorkout
   end
   
   def contains_data
-    # false
     self.intervals.map{ |i| i.contains_data }.any?
   end
   
@@ -30,7 +30,7 @@ class MemberWorkout
     self.workout.team.get_member self.member_id
   end
   def member=(member)
-    member.member_workouts << self # unless self.workout && (self.workout.team != member.team) && Logger.new(STDOUT).info(self.workout.team) && Logger.new(STDOUT).info(member.team)
+    member.member_workouts << self
   end
   
   # accepts_nested_attributes_for

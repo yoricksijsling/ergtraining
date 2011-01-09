@@ -6,8 +6,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @workouts = @team.workouts
-    @members = @team.members
+    render :layout => "in_team"
   end
 
   def new

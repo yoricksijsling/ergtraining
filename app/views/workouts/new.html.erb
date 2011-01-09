@@ -1,4 +1,4 @@
-<h1>Nieuwe training</h1>
+<h3>Nieuwe training</h3>
 
 <%= form_for [@team, @workout] do |f| %>
   <% if @workout.errors.any? %>
@@ -25,5 +25,3 @@
     <%= f.submit %>
   </div>
 <% end %>
-
-<%= link_to 'Terug', @team %>

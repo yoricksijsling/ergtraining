@@ -3,6 +3,8 @@ class WorkoutsController < ApplicationController
   before_filter :find_workout, :only => [:show, :edit, :update, :destroy, :get_for_member]
   before_filter :parse_date, :only => [:create]
   
+  layout "in_team"
+  
   def index
     @workouts = @team.workouts
   end

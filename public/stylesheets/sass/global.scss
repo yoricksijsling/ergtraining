@@ -1,6 +1,47 @@
 @import "blueprint/global.scss";
 
+/* global.scss */
 
+$body_width: 960px;
+$left_pane_width: 180px;
+
+
+.body_container { width: $body_width; }
+
+table {
+	tr { line-height: 2; }
+	tr td { padding: 0 0 0 10px; }
+	tr:nth-child(even) td { background-color: transparent; }
+	tr.active td { background-color: #d0d0d0; }
+}
+
+.header_pane {
+	background-color: #000000;
+	padding: 1.5em 0 0 10px;
+	
+	h1 { color: #ffffff; margin-bottom: 0; font-weight: bold; }
+}
+.left_pane {
+	float: left;
+	width: $left_pane_width - 1;
+	padding: 1.5em 0 0 0px;
+	border-right: 1px solid grey; border-bottom: 1px solid grey;
+	background-color: #f0f0f0;
+	
+	p {
+		margin-left: 10px;
+	}
+	
+	table tr td { border-bottom: 2px solid #f0f0f0; }
+}
+.right_pane {
+	float: left;
+	width: $body_width - $left_pane_width;
+	padding-top: 1.5em;
+	
+	table { margin-bottom: 0; }
+	table tr td { border-bottom: 2px solid white; }
+}
 
 .css_table_cell {
 	float: left;
@@ -8,33 +49,35 @@
 
 .edit_workout .member_workout {
 
-.header {
-	background-color: #99ff99;
-	line-height: 2;
-}
-.content {
-	padding-top: 1px;
-	padding-bottom: 1px;
-}
+	.header {
+		background-color: #f2e41d;
+		line-height: 2;
+	}
+	.content {
+		padding-top: 1px;
+		padding-bottom: 1px;
+	}
 
-.member_name, .interval_name { @extend .css_table_cell; width: 10em;
-	line-height: 2; }
-.pace_cell { @extend .css_table_cell; width: 6em; }
-.hravg_cell { @extend .css_table_cell; width: 5em; }
-.buttons_cell { @extend .css_table_cell; width: 10em; }
+	.member_name { @extend .css_table_cell; width: 10em; line-height: 2; padding-right: 5px; padding-left: 10px; }
+	.pace_cell { @extend .css_table_cell; width: 6em; padding-left: 5px; }
+	.hravg_cell { @extend .css_table_cell; width: 5em; }
+	.buttons_cell { @extend .css_table_cell; width: 10em; }
 
-input.pace {
-	width: 5em;
-	margin: 1px 0 1px -5px;
-	padding: 0 5px;
-	line-height: 2;
-}
-input.hravg {
-	width: 3em;
-	padding: 0 5px 0 1.5em;
-	margin: 1px 0 1px -1.5em;
-	line-height: 2;
-}
-label.hravg { position: relative; }
+	.intervals { width: 250px; }
+	.interval_name { line-height: 2; padding-left: 10px; }
+
+	input.pace {
+		width: 5em;
+		margin: 1px 0 0px -6px;
+		padding: 0 5px;
+		line-height: 2;
+	}
+	input.hravg {
+		width: 3em;
+		padding: 0 5px 0 1.5em;
+		margin: 1px 0 0px -1.5em;
+		line-height: 2;
+	}
+	label.hravg { position: relative; }
 
 }

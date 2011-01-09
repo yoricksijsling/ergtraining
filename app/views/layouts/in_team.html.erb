@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ergtraining</title>
+  <%= stylesheet_link_tag 'global' %>
+  <%= stylesheet_link_tag 'print', :media => 'print' %>
+  <!--[if IE 6]> <%= stylesheet_link_tag 'ie' %> <![endif]-->
+  <%= javascript_include_tag "mootools-core" %>
+  <%= javascript_include_tag "mootools-more" %>
+  <%= javascript_include_tag "rails" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+<div class='body_container'>
+	<div id='header_pane' class='header_pane'><h1><%= @team.title %></h1></div>
+
+	<div id='left_pane' class='left_pane'>
+	<table>
+	<% @team.workouts.each do |workout| %>
+	  <tr class='<% if @workout == workout %>active<%end%>'>
+	    <td><%= link_to workout.title, [@team, workout] %></td>
+	    <td><%= l workout.date %></td>
+	  </tr>
+	<% end %>
+	</table>
+	<p><%= link_to 'Nieuwe training toevoegen', new_team_workout_path(@team) %></p>
+	</div>
+
+	<div id='right_pane' class='right_pane'>
+		<%= yield %>
+	</div>
+</div>
+</body>
+</html>
