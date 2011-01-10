@@ -58,10 +58,13 @@ class WorkoutsControllerTest < ActionController::TestCase
     setup do
       put :update, :id => @workout.to_param, :team_id => @team.to_param, :workout => {
         :for_member_attributes => {
-          @henk.to_param => { :intervals_attributes => {
-            0 => { :hravg => 1, :pace => "1:50.2" },
-            1 => { :hravg => 3, :pace => "1:51.3" }
-          }}
+          @henk.to_param => {
+            :comment => 'mycomment',
+            :intervals_attributes => {
+              0 => { :hravg => 1, :pace => "1:50.2" },
+              1 => { :hravg => 3, :pace => "1:51.3" }
+            }
+          }
         }
       }
     end
@@ -75,6 +78,7 @@ class WorkoutsControllerTest < ActionController::TestCase
       mw = @workout.get_for @henk
       assert_not_nil mw
       assert_equal 3, mw.intervals[1].hravg
+      assert_equal 'mycomment', mw.comment
     end
   end
 end

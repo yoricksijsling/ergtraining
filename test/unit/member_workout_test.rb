@@ -27,6 +27,11 @@ class MemberWorkoutTest < ActiveSupport::TestCase
       @mw1.intervals << Interval.new(:hravg => "123")
       assert @mw1.contains_data
     end
+    
+    should "return true when a comment is added" do
+      @mw1.comment = "mycomment"
+      assert @mw1.contains_data
+    end
   end
   
   context "ensuring enough intervals" do

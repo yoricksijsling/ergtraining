@@ -23,7 +23,7 @@ class MemberWorkout
   end
   
   def contains_data
-    self.intervals.map{ |i| i.contains_data }.any?
+    self.comment? || self.intervals.map{ |i| i.contains_data }.any?
   end
   
   def member # Moet via team omdat member een EmbeddedDocument is
