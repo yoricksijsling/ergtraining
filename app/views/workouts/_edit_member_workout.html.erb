@@ -1,8 +1,11 @@
 <%= fields_for "workout[for_member_attributes][#{member_workout.member_id}]", member_workout.ensure_enough_intervals do |fmw| %>
+	<%= fmw.label :comment %>
+	<%= fmw.text_area :comment, :rows => 3 %>
+	
+	<%= fmw.label :intervals %>
 	<table class='intervals'>
 		<%= fmw.fields_for :intervals do |fi| %>
 			<tr class='interval'>
-			
 				<td class='interval_name'>interval</div>
 				<td>
 					<%= fi.text_field :pace, :class => 'pace', :placeholder => '0:00.0' %>
@@ -13,6 +16,4 @@
 			</div>
 		<% end %>
 	</table>
-	<%= fmw.label :comment %>
-	<%= fmw.text_field :comment %>
 <% end %>

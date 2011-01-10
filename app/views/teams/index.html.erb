@@ -1,18 +1,14 @@
-<h1>Teams</h1>
+<br /><h3>Kies een team</h3>
 
-<table>
-  <tr>
-    <th>Naam</th>
-    <th>Leden</th>
-  </tr>
-
+<div class='team_tiles'>
 <% @teams.each do |team| %>
-  <tr>
-    <td><%= link_to team.title, team %></td>
-    <td><%= team.members.map{ |m| m.name }.join ', ' %></td>
-  </tr>
+	<div class='team_tile'>
+		<a class='link_overlay' href='<%= team_path team %>'></a>
+		<div class='title'><%= team.title %></div>
+		<div class='members'><%= team.members.map{ |m| m.name }.join ', ' %></div>
+	</div>
 <% end %>
-</table>
+</div>
 
 <br />
 

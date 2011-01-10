@@ -12,9 +12,8 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+<div id='header_pane' class='header_pane'><h1><%= @team.title %></h1></div>
 <div class='body_container'>
-	<div id='header_pane' class='header_pane'><h1><%= @team.title %></h1></div>
-
 	<div id='left_pane' class='left_pane'>
 	<table>
 	<% @team.workouts.each do |workout| %>

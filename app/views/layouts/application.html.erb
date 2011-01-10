@@ -12,8 +12,11 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-<div class='body_container'>
-<%= yield %>
-</div>
+	<div id='header_pane' class='header_pane'><h1>Ergtraining</h1></div>
+	<div class='body_container'>
+		<div id='right_pane' class='right_pane'>
+			<%= yield %>
+		</div>
+	</div>
 </body>
 </html>

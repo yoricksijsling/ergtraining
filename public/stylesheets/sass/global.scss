@@ -5,8 +5,13 @@
 $body_width: 960px;
 $left_pane_width: 180px;
 
+body {
+	background-color: #607080;
+}
 
 .body_container { width: $body_width; }
+
+.link_overlay { position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; }
 
 table {
 	tr { line-height: 2; }
@@ -16,15 +21,15 @@ table {
 }
 
 .header_pane {
-	background-color: #000000;
-	padding: 1.5em 0 0 10px;
+	background-color: black;
+	padding: 0 0 0 10px;
 	
-	h1 { color: #ffffff; margin-bottom: 0; font-weight: bold; }
+	h1 { color: #ffffff; margin-bottom: 0; font-weight: bold; line-height: 1.5; }
 }
 .left_pane {
 	float: left;
 	width: $left_pane_width - 1;
-	padding: 1.5em 0 0 0px;
+	padding: 5px 0 0 0;
 	border-right: 1px solid grey; border-bottom: 1px solid grey;
 	background-color: #f0f0f0;
 	
@@ -36,36 +41,51 @@ table {
 }
 .right_pane {
 	float: left;
-	width: $body_width - $left_pane_width;
-	padding-top: 1.5em;
+	width: $body_width - $left_pane_width - 10;
+	padding: 0.5em 5px;
+	background-color: white;
 	
-	table { margin-bottom: 0; }
 	table tr td { border-bottom: 2px solid white; }
 }
 
-.css_table_cell {
-	float: left;
+.team_tiles {
+
+	.team_tile {
+		position: relative;
+		background-color: #e0e0e0;
+		margin: 0 30px 1.5em 20px;
+		padding: 0.75em;
+		border-radius: 2px;
+		box-shadow: 3px 3px 3px #c0c0c0;
+		-moz-box-shadow: 3px 3px 3px #c0c0c0;
+		-webkit-box-shadow: 3px 3px 3px #c0c0c0;
+	
+		.title { font-size: 3em; line-height: 1.5; }
+	}
+	.team_tile:hover { background-color: #c0d0ff; }
 }
 
 .edit_workout .member_workout {
 
 	.header {
-		background-color: #f2e41d;
+		background-color: #e0e0e0;
+		border-bottom: 1px solid #c0c0c0;
 		line-height: 2;
 	}
 	.content {
 		padding-top: 1px;
-		padding-bottom: 1px;
 	}
 
-	.member_name { @extend .css_table_cell; width: 10em; line-height: 2; padding-right: 5px; padding-left: 10px; }
-	.pace_cell { @extend .css_table_cell; width: 6em; padding-left: 5px; }
-	.hravg_cell { @extend .css_table_cell; width: 5em; }
-	.buttons_cell { @extend .css_table_cell; width: 10em; }
+	.member_name { float: left; width: 10em; line-height: 2; padding-right: 5px; padding-left: 10px; font-weight: bold; }
+	.pace_cell { float: left; width: 6em; padding-left: 5px; }
+	.hravg_cell { float: left; width: 5em; }
+	.buttons_cell { float: left; width: 10em; }
 
 	.intervals { width: 250px; }
-	.interval_name { line-height: 2; padding-left: 10px; }
+	.interval_name { line-height: 2; padding-left: 1px 0 1px 10px; }
 
+	label { margin-left: 10px; display: block; }
+	textarea { margin-left: 5px; }
 	input.pace {
 		width: 5em;
 		margin: 1px 0 0px -6px;
@@ -78,6 +98,6 @@ table {
 		margin: 1px 0 0px -1.5em;
 		line-height: 2;
 	}
-	label.hravg { position: relative; }
+	label.hravg { position: relative; display: inline; margin: 0; }
 
 }
