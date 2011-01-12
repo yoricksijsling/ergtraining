@@ -1,5 +1,7 @@
 if ENV['MONGOHQ_URL']
-  MongoMapper.config = { RAILS_ENV => { 'uri' => ENV['MONGOHQ_URL'] } }
+  uri = URI.parse(ENV['MONGOHQ_URL'])
+  MongoMapper.connection = Mongo::Connection.from_uri(ENV['MONGOHQ_URL'])
+  MongoMapper.database = conn.db(uri.path.gsub(/^\//, ''))
 else
   MongoMapper.database = "ergtraining-#{Rails.env}"
 end
