@@ -16,7 +16,6 @@ var Application = new Class({
 				url: target.get('data-ajaxurl'),
 				update: target,
 				onSuccess: function() {
-					// target.getElement('input').focus();
 					el.addEvent('click:once', function(event) {
 						el.getParent('.member_workout').getElement('.content').set('html', '');
 						event.stop();

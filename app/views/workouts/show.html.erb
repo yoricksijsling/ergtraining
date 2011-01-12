@@ -15,17 +15,17 @@
 
 	<% @workout.team.members.each do |member|
 		member_workout = @workout.get_for member
+		if member_workout
+			avg_pace = member_workout.intervals_average :pace_as_float
+			avg_hravg = member_workout.intervals_average :hravg
+		end
 		%>
 		<div class='member_workout'>
 			<div class='header'>
 				<div class='member_name'><%= member.name %></div>
-				<% if member_workout %>
-					<div class='pace_cell'><%= Pace.to_s(member_workout.intervals_average :pace_as_float) %></div>
-					<div class='hravg_cell'>♡ <%= member_workout.intervals_average :hravg %></div>
-					<div class='buttons_cell'><a class='show_member_workout' href='javascript:'>Details</a></div>
-				<% else %>
-					<div class='buttons_cell'><a class='show_member_workout' href='javascript:'>Details</a></div>
-				<% end %>
+				<div class='pace_cell'><%= (avg_pace && avg_pace > 0) ? (Pace.to_s avg_pace) : "-" %></div>
+				<div class='hravg_cell'>♡ <%= (avg_hravg && avg_hravg > 0) ? avg_hravg : "-" %></div>
+				<div class='buttons_cell'><a class='show_member_workout' href='javascript:'>Details</a></div>
 				<div class='clear'></div>
 			</div>
 			
