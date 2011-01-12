@@ -6,5 +6,6 @@ tmp/**/*
 public/cache/**/*
 doc/api
 doc/app
+.sass-cache
 ._*
 
