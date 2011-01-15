@@ -423,6 +423,9 @@ table tr.active td {
 .team_tiles .team_tile:hover {
   background-color: #c0d0ff; }
 
+.new_workout .workout_config_preview {
+  display: inline; }
+
 .edit_workout .member_workout .header {
   background-color: #e0e0e0;
   border-bottom: 1px solid #c0c0c0;

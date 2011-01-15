@@ -5,13 +5,17 @@ class Workout
   key :date, Date, :default => Date.today
   many :member_workouts
   
+  def self.workout_config_from_title(title)
+    multipliers = title.scan(/(\d*)x/).flatten.map{ |m| m.to_i }
+    { :intervals_per_repeat => multipliers.pop || 1, :repeats => multipliers.pop || 1 }
+  end
+  
   def workout_config
-    multipliers = @title.scan(/(\d*)x/).flatten.map{ |m| m.to_i }
-    { :intervals => multipliers.pop || 1, :repeats => multipliers.pop || 1 }
+    Workout.workout_config_from_title @title
   end
   
   def number_of_intervals_per_repeat
-    self.workout_config[:intervals]
+    self.workout_config[:intervals_per_repeat]
   end
   
   def number_of_repeats
@@ -20,7 +24,7 @@ class Workout
   
   def number_of_intervals
     config = self.workout_config
-    config[:intervals] * config[:repeats]
+    config[:intervals_per_repeat] * config[:repeats]
   end
 
   def get_for(member)

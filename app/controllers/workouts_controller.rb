@@ -21,6 +21,12 @@ class WorkoutsController < ApplicationController
     @member_workout = @workout.get_or_new_for member
     render :layout => false
   end
+  
+  def workout_config_for
+    @workout_config = Workout.workout_config_from_title(params[:title])
+    Logger.new(STDOUT).info @workout_config
+    render :layout => false
+  end
 
   def create
     @workout = Workout.new params[:workout]

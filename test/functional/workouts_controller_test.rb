@@ -43,6 +43,12 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_routing 'teams/myteam/workouts/myworkout/get_for_member/m1', { :controller => 'workouts', :action => 'get_for_member', :workout_id => 'myworkout', :member_id => 'm1', :team_id => 'myteam' }
   end
   
+  should "get the right workout config for a title" do
+    get :workout_config_for, :title => "3x 6x (1'/1')"
+    assert_response :success
+    # ActiveSupport::JSON.decode @response.body
+  end
+  
   context "getting a new member workout" do
     setup do
       post :get_for_member, :workout_id => @workout.to_param, :member_id => @henk.to_param, :team_id => @team.to_param

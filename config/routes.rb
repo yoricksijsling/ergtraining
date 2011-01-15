@@ -6,6 +6,8 @@ Ergtraining::Application.routes.draw do
     end
   end
   
+  match 'workout_config_for', :controller => :workouts, :action => :workout_config_for, :as => :workout_config_for
+  
   root :to => "teams#index"
   
   # The priority is based upon order of creation:

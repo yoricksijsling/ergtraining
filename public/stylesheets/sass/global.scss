@@ -65,39 +65,4 @@ table {
 	.team_tile:hover { background-color: #c0d0ff; }
 }
 
-.edit_workout .member_workout {
-
-	.header {
-		background-color: #e0e0e0;
-		border-bottom: 1px solid #c0c0c0;
-		line-height: 2;
-	}
-	.content {
-		padding-top: 1px;
-	}
-
-	.member_name { float: left; width: 10em; line-height: 2; padding-right: 5px; padding-left: 10px; font-weight: bold; }
-	.pace_cell { float: left; width: 5em; padding-left: 5px; }
-	.hravg_cell { float: left; width: 5em; }
-	.buttons_cell { float: left; width: 10em; }
-
-	.intervals { width: 250px; }
-	.interval_name { line-height: 2; padding-left: 1px 0 1px 10px; }
-
-	label { margin-left: 10px; display: block; }
-	textarea { margin-left: 5px; }
-	input.pace {
-		width: 5em;
-		margin: 1px 0 0px -6px;
-		padding: 0 5px;
-		line-height: 2;
-	}
-	input.hravg {
-		width: 3em;
-		padding: 0 5px 0 1.5em;
-		margin: 1px 0 0px -1.5em;
-		line-height: 2;
-	}
-	label.hravg { position: relative; display: inline; margin: 0; }
-
-}
+@import "workouts.scss";

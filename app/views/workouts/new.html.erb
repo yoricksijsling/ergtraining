@@ -15,7 +15,8 @@
 
   <div class="field">
     <%= f.label :title, "Titel (bv. 2x 20', 3x6x1 of 20'-test)" %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, "data-workout_config_url" => workout_config_for_url %>
+		<div class='workout_config_preview'></div>
   </div>
   <div class="field">
     <%= f.label :date, "Datum" %><br />
