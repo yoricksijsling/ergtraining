@@ -15,6 +15,13 @@ var Application = new Class({
 	},
 	
 	applyEvents: function() {
+		
+		$('body').addEvent('keydown:keys(a)', function(event) {
+			if (event.target == $('body')) {
+				this.addWorkout()
+			}
+		}.bind(this));
+		
 		$('right_pane').addEvent('click:relay(.show_member_workout)', function(event, el) {
 			var target = el.getParent('.member_workout').getElement('.content');
 			new Request.HTML({
@@ -31,7 +38,6 @@ var Application = new Class({
 		
 		if ($('new_workout')) {
 			$('new_workout').getElement('#workout_title')
-				.focus()
 				.addEvent('keyup:onPause(500)', function(event) {
 					var previewDiv = event.target.getParent('.field').getElement('.workout_config_preview');
 					new Request.HTML({
@@ -43,9 +49,14 @@ var Application = new Class({
 					}).get({
 						title: event.target.get('value')
 					});
-				});
+				})
+				.focus();
 		}
 		
+	},
+	
+	addWorkout: function() {
+		document.location = $('new_workout_link').get('href');
 	}
 		
 });

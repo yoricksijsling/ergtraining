@@ -1,6 +1,6 @@
 // MooTools: the javascript framework.
-// Load this file's selection again by visiting: http://mootools.net/more/d521ac91d675299dbc195431f9d6fabb 
-// Or build this file again with packager using: packager build More/More More/Events.Pseudos More/Element.Delegation More/Spinner
+// Load this file's selection again by visiting: http://mootools.net/more/affbe4e07a2506f86877557b0ca243fb 
+// Or build this file again with packager using: packager build More/Element.Event.Pseudos.Keys More/Element.Delegation More/Mask More/Spinner
 /*
 ---
 
@@ -209,6 +209,90 @@ var proto = Element.prototype;
 /*
 ---
 
+name: Element.Event.Pseudos.Keys
+
+description: Adds functionallity fire events if certain keycombinations are pressed
+
+license: MIT-style license
+
+authors:
+  - Arian Stolwijk
+
+requires: [Element.Event.Pseudos]
+
+provides: [Element.Event.Pseudos.Keys]
+
+...
+*/
+
+(function(){
+
+var keysStoreKey = '$moo:keys-pressed',
+	keysKeyupStoreKey = '$moo:keys-keyup';
+
+
+Event.definePseudo('keys', function(split, fn, args){
+
+	var event = args[0],
+		keys = [],
+		pressed = this.retrieve(keysStoreKey, []);
+
+	keys.append(split.value.replace('++', function(){
+		keys.push('+'); // shift++ and shift+++a
+		return '';
+	}).split('+'));
+
+	pressed.include(event.key);
+
+	if (keys.every(function(key){
+		return pressed.contains(key);
+	})) fn.apply(this, args);
+
+	this.store(keysStoreKey, pressed);
+
+	if (!this.retrieve(keysKeyupStoreKey)){
+		var keyup = function(event){
+			(function(){
+				pressed = this.retrieve(keysStoreKey, []).erase(event.key);
+				this.store(keysStoreKey, pressed);
+			}).delay(0, this); // Fix for IE
+		};
+		this.store(keysKeyupStoreKey, keyup).addEvent('keyup', keyup);
+	}
+
+});
+
+Object.append(Event.Keys, {
+	'shift': 16,
+	'control': 17,
+	'alt': 18,
+	'capslock': 20,
+	'pageup': 33,
+	'pagedown': 34,
+	'end': 35,
+	'home': 36,
+	'numlock': 144,
+	'scrolllock': 145,
+	';': 186,
+	'=': 187,
+	',': 188,
+	'-': Browser.firefox ? 109 : 189,
+	'.': 190,
+	'/': 191,
+	'`': 192,
+	'[': 219,
+	'\\': 220,
+	']': 221,
+	"'": 222,
+	'+': 107
+});
+
+})();
+
+
+/*
+---
+
 script: Element.Delegation.js
 
 name: Element.Delegation
@@ -254,53 +338,6 @@ Event.definePseudo('relay', function(split, fn, args, proxy){
 		condition: Element.Events.mouseleave.condition
 	}
 });
-
-
-/*
----
-
-script: Class.Refactor.js
-
-name: Class.Refactor
-
-description: Extends a class onto itself with new property, preserving any items attached to the class's namespace.
-
-license: MIT-style license
-
-authors:
-  - Aaron Newton
-
-requires:
-  - Core/Class
-  - /MooTools.More
-
-# Some modules declare themselves dependent on Class.Refactor
-provides: [Class.refactor, Class.Refactor]
-
-...
-*/
-
-Class.refactor = function(original, refactors){
-
-	Object.each(refactors, function(item, name){
-		var origin = original.prototype[name];
-		if (origin && origin.$origin) origin = origin.$origin;
-		if (origin && typeof item == 'function'){
-			original.implement(name, function(){
-				var old = this.previous;
-				this.previous = origin;
-				var value = item.apply(this, arguments);
-				this.previous = old;
-				return value;
-			});
-		} else {
-			original.implement(name, item);
-		}
-	});
-
-	return original;
-
-};
 
 
 /*
@@ -1116,6 +1153,53 @@ Element.implement({
 	}
 
 });
+
+
+/*
+---
+
+script: Class.Refactor.js
+
+name: Class.Refactor
+
+description: Extends a class onto itself with new property, preserving any items attached to the class's namespace.
+
+license: MIT-style license
+
+authors:
+  - Aaron Newton
+
+requires:
+  - Core/Class
+  - /MooTools.More
+
+# Some modules declare themselves dependent on Class.Refactor
+provides: [Class.refactor, Class.Refactor]
+
+...
+*/
+
+Class.refactor = function(original, refactors){
+
+	Object.each(refactors, function(item, name){
+		var origin = original.prototype[name];
+		if (origin && origin.$origin) origin = origin.$origin;
+		if (origin && typeof item == 'function'){
+			original.implement(name, function(){
+				var old = this.previous;
+				this.previous = origin;
+				var value = item.apply(this, arguments);
+				this.previous = old;
+				return value;
+			});
+		} else {
+			original.implement(name, item);
+		}
+	});
+
+	return original;
+
+};
 
 
 /*
