@@ -402,8 +402,8 @@ table tr.active td {
 
 .right_pane {
   float: left;
-  width: 770px;
-  padding: 0.5em 5px;
+  width: 730px;
+  padding: 0.5em 25px 1.5em;
   background-color: white; }
   .right_pane table tr td {
     border-bottom: 2px solid white; }

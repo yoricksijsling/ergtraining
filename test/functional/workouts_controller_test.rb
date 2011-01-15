@@ -18,7 +18,6 @@ class WorkoutsControllerTest < ActionController::TestCase
 
   should "create workout" do
     new_workout = Workout.new(:title => "2x 20'", :date => Date.new(2010, 5, 18))
-#"date(i1)" => 2010, "date(i2)" => 5, "date(i3)" => 18
     assert_difference('Workout.count') do
       post :create, :workout => new_workout.attributes, :team_id => @team.to_param
     end

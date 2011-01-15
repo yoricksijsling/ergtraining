@@ -41,6 +41,7 @@ class MemberWorkout
   end
   
   def intervals_average(field)
-    self.intervals.map{ |i| i.send field}.reduce(:+).to_f / self.intervals.count
+    values = self.intervals.map{ |i| i.send field}.select{ |v| v != nil }
+    values.reduce(:+).to_f / values.count
   end
 end

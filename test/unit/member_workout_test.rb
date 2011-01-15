@@ -60,4 +60,15 @@ class MemberWorkoutTest < ActiveSupport::TestCase
       assert_equal 112.5, @mw1.intervals_average(:pace_as_float)
     end
   end
+  
+  context "interval statistics with incomplete data" do
+    setup do
+      @mw1.ensure_enough_intervals
+      @mw1.intervals[1] = Interval.new(:hravg => "110", :hrmax => "210", :pace => "1:55")
+    end
+
+    should "calculate average pace correctly" do
+      assert_equal 115, @mw1.intervals_average(:pace_as_float)
+    end
+  end
 end
