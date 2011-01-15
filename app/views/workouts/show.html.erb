@@ -34,6 +34,7 @@
 		</div>
 	<% end %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Opslaan" %>
+		<%= link_to 'Verwijderen', [@team, @workout], :confirm => 'Training verwijderen?', :method => :delete %>
   </div>
 <% end %>

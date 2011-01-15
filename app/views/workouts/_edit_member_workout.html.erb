@@ -1,5 +1,5 @@
 <%= fields_for "workout[for_member_attributes][#{member_workout.member_id}]", member_workout.ensure_enough_intervals do |fmw| %>
-	<%= fmw.label :comment %>
+	<%= fmw.label :comment, "Opmerkingen" %>
 	<%= fmw.text_area :comment, :rows => 3 %>
 	
 	<%= fmw.label :intervals %>

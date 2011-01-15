@@ -41,8 +41,8 @@ table {
 }
 .right_pane {
 	float: left;
-	width: $body_width - $left_pane_width - 10;
-	padding: 0.5em 5px;
+	width: $body_width - $left_pane_width - 50;
+	padding: 0.5em 25px 1.5em;
 	background-color: white;
 	
 	table tr td { border-bottom: 2px solid white; }
