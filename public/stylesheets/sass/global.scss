@@ -38,6 +38,7 @@ table {
 	}
 	
 	table tr td { border-bottom: 2px solid #f0f0f0; }
+	table tr.in_past td { font-weight: bold; }
 }
 .right_pane {
 	float: left;

@@ -399,6 +399,8 @@ table tr.active td {
     margin-left: 10px; }
   .left_pane table tr td {
     border-bottom: 2px solid #f0f0f0; }
+  .left_pane table tr.in_past td {
+    font-weight: bold; }
 
 .right_pane {
   float: left;

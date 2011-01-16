@@ -18,7 +18,7 @@
 		<p><%= link_to 'Nieuwe training toevoegen', new_team_workout_path(@team), :id => 'new_workout_link' %></p>
 		<table>
 		<% @team.workouts.all.sort{|x,y| y.date <=> x.date}.each do |workout| %>
-		  <tr class='<% if @workout == workout %>active<%end%>'>
+		  <tr class='<%= (workout == @workout) ? 'active' : '' %> <%= (workout.date < Date.tomorrow) ? 'in_past' : ''%>'>
 		    <td><%= l workout.date %></td>
 		    <td><%= link_to workout.title, [@team, workout] %></td>
 		  </tr>
