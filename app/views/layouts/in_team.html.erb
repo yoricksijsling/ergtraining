@@ -17,10 +17,10 @@
 	<div id='left_pane' class='left_pane'>
 		<p><%= link_to 'Nieuwe training toevoegen', new_team_workout_path(@team), :id => 'new_workout_link' %></p>
 		<table>
-		<% @team.workouts.reverse.each do |workout| %>
+		<% @team.workouts.all.sort{|x,y| y.date <=> x.date}.each do |workout| %>
 		  <tr class='<% if @workout == workout %>active<%end%>'>
-		    <td><%= link_to workout.title, [@team, workout] %></td>
 		    <td><%= l workout.date %></td>
+		    <td><%= link_to workout.title, [@team, workout] %></td>
 		  </tr>
 		<% end %>
 		</table>
