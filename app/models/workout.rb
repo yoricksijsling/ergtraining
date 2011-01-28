@@ -3,6 +3,7 @@ class Workout
   belongs_to :team
   key :title, String
   key :date, Date, :default => Date.today
+  key :comment, String
   many :member_workouts
   
   def self.workout_config_from_title(title)

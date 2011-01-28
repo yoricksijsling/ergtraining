@@ -62,6 +62,7 @@ class WorkoutsControllerTest < ActionController::TestCase
   context "A PUT to workouts" do
     setup do
       put :update, :id => @workout.to_param, :team_id => @team.to_param, :workout => {
+        :comment => 'workoutcomment',
         :for_member_attributes => {
           @henk.to_param => {
             :comment => 'mycomment',
@@ -78,7 +79,12 @@ class WorkoutsControllerTest < ActionController::TestCase
     should "redirect to workout" do
       assert_redirected_to team_workout_path(@team, @workout)
     end
-  
+
+    should "save workout comment" do
+      @workout.reload
+      assert_equal 'workoutcomment', @workout.comment
+    end
+    
     should "create a member workout" do
       mw = @workout.get_for @henk
       assert_not_nil mw
