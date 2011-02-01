@@ -29,7 +29,7 @@
 			<div class='header'>
 				<div class='member_name'><%= member.name %></div>
 				<div class='pace_cell'><%= (avg_pace && avg_pace > 0) ? (Pace.to_s avg_pace) : "-" %></div>
-				<div class='hravg_cell'>♡ <%= (avg_hravg && avg_hravg > 0) ? avg_hravg : "-" %></div>
+				<div class='hravg_cell'>♡ <%= (avg_hravg && avg_hravg > 0) ? ("%.1f" % avg_hravg) : "-" %></div>
 				<div class='buttons_cell'><a class='show_member_workout' href='javascript:'>Details</a></div>
 				<div class='clear'></div>
 			</div>
