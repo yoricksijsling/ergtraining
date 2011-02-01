@@ -1,6 +1,8 @@
 .new_workout .workout_config_preview {
   display: inline; }
 
+.edit_workout #workout_comment {
+  height: 3em; }
 .edit_workout .member_workout .header {
   background-color: #e0e0e0;
   border-bottom: 1px solid #c0c0c0;

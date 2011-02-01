@@ -13,6 +13,11 @@
     </div>
   <% end %>
 
+	<div>
+		<%= f.label :comment, "Opmerkingen" %><br />
+		<%= f.text_area :comment %>
+	</div>
+
 	<% @workout.team.members.each do |member|
 		member_workout = @workout.get_for member
 		if member_workout
